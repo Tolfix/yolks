@@ -29,8 +29,6 @@ LABEL       org.opencontainers.image.licenses=MIT
 
 ENV         DEBIAN_FRONTEND=noninteractive
 
-
-RUN add-apt-repository ppa:deadsnakes/ppa -y
 # Install required packages
 RUN apt-get update && \
 	apt-get install -y wget build-essential  gawk bison python3.4
