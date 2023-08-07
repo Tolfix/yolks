@@ -51,7 +51,7 @@ RUN wget https://ftp.gnu.org/gnu/glibc/glibc-2.34.tar.gz && \
 	cd glibc-2.34 && \
 	mkdir build && \
 	cd build && \
-	../configure --prefix=/usr && \
+	../configure --prefix=/usr --disable-werror && \
 	make -j$(nproc) && \
 	make install
 
