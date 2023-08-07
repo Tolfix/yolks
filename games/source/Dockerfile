@@ -31,10 +31,10 @@ ENV         DEBIAN_FRONTEND=noninteractive
 
 # Install required packages
 RUN apt-get update && \
-	apt-get install -y wget build-essential gawk bison python3.4
+	apt-get install -y wget build-essential gawk bison python3
 
-RUN if command -v python3.4 >/dev/null 2>&1; then \
-	ln -s $(command -v python3.4) /usr/local/bin/python; \
+RUN if command -v python3 >/dev/null 2>&1; then \
+	ln -s $(command -v python3) /usr/local/bin/python; \
 	else \
 	echo "Python 3.4 not found."; \
 	exit 1; \
