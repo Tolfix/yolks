@@ -34,8 +34,10 @@ RUN apt-get update && \
 	apt-get install -y wget build-essential  gawk bison python3.4
 
 # Check if we have the correct version of python
-RUN python3.4 --version
+RUN python --version
 
+# Make an alias for python3.4 to python
+# RUN ln -s /usr/bin/python3.4 /usr/bin/python
 
 # Download and extract GLIBC_2.34
 RUN wget https://ftp.gnu.org/gnu/glibc/glibc-2.34.tar.gz && \
