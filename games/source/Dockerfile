@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM        ubuntu:20.04
+FROM        ubuntu:latest
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
@@ -31,16 +31,7 @@ ENV         DEBIAN_FRONTEND=noninteractive
 
 # Install required packages
 RUN apt-get update && \
-	apt-get install -y wget build-essential gawk bison
-
-RUN apt-get update \
-	&& apt-get install -y --no-install-recommends \
-	python3.4 \
-	python3.4-dev \
-	python3.4-venv \
-	git \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+	apt-get install -y wget build-essential gawk bison python3.4
 
 RUN if command -v python3.4 >/dev/null 2>&1; then \
 	ln -s $(command -v python3.4) /usr/local/bin/python; \
@@ -49,6 +40,8 @@ RUN if command -v python3.4 >/dev/null 2>&1; then \
 	exit 1; \
 	fi
 
+# Check if we have the correct version of python
+RUN python --version
 
 # Make an alias for python3.4 to python
 # RUN ln -s /usr/bin/python3.4 /usr/bin/python
