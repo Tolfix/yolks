@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM ubuntu:22.04
+FROM ubuntu:21.10
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
