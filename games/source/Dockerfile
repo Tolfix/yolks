@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM        ubuntu:latest
+FROM alpine:latest
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
