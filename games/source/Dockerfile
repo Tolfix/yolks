@@ -33,7 +33,7 @@ ENV         DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
 	apt-get install -y wget build-essential
 
-RUN apt-get install gawk bison python -y
+RUN apt-get install gawk bison python3.4 -y
 
 # Download and extract GLIBC_2.34
 RUN wget https://ftp.gnu.org/gnu/glibc/glibc-2.34.tar.gz && \
