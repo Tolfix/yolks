@@ -46,21 +46,10 @@ RUN python --version
 # Make an alias for python3.4 to python
 # RUN ln -s /usr/bin/python3.4 /usr/bin/python
 
-RUN apk --no-cache add  \
-	wget            \
-	ca-certificates \
-	libstdc++
-# Get and install glibc for alpine
-ARG APK_GLIBC_VERSION=2.34-r0
-ARG APK_GLIBC_FILE="glibc-${APK_GLIBC_VERSION}.apk"
-ARG APK_GLIBC_BIN_FILE="glibc-bin-${APK_GLIBC_VERSION}.apk"
-ARG APK_GLIBC_BASE_URL="https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${APK_GLIBC_VERSION}"
-RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
-	&& wget "${APK_GLIBC_BASE_URL}/${APK_GLIBC_FILE}"       \
-	&& apk --force-overwrite --no-cache add "${APK_GLIBC_FILE}"               \
-	&& wget "${APK_GLIBC_BASE_URL}/${APK_GLIBC_BIN_FILE}"   \
-	&& apk --no-cache add "${APK_GLIBC_BIN_FILE}"           \
-	&& rm glibc-*
+RUN apk --no-cache add ca-certificates wget
+RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
+RUN apk add glibc-2.34-r0.apk
 
 RUN         dpkg --add-architecture i386 \
 	&& apt update \
