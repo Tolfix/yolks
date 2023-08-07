@@ -29,6 +29,11 @@ LABEL       org.opencontainers.image.licenses=MIT
 
 ENV         DEBIAN_FRONTEND=noninteractive
 
+
+RUN echo "deb http://archive.ubuntu.com/ubuntu/ impish main restricted universe multiverse" > /etc/apt/sources.list && \
+	echo "deb http://archive.ubuntu.com/ubuntu/ impish-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
+	echo "deb http://archive.ubuntu.com/ubuntu/ impish-security main restricted universe multiverse" >> /etc/apt/sources.list
+
 # Make an alias for python3.4 to python
 # RUN ln -s /usr/bin/python3.4 /usr/bin/python
 
