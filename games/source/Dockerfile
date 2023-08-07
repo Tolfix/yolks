@@ -29,11 +29,15 @@ LABEL       org.opencontainers.image.licenses=MIT
 
 ENV         DEBIAN_FRONTEND=noninteractive
 
+
+RUN add-apt-repository ppa:deadsnakes/ppa -y
 # Install required packages
 RUN apt-get update && \
-	apt-get install -y wget build-essential
+	apt-get install -y wget build-essential  gawk bison python3.4
 
-RUN apt-get install gawk bison python3.4 -y
+# Check if we have the correct version of python
+RUN python3.4 --version
+
 
 # Download and extract GLIBC_2.34
 RUN wget https://ftp.gnu.org/gnu/glibc/glibc-2.34.tar.gz && \
