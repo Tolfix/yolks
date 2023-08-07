@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM --platform=$TARGETOS/$TARGETARCH debian:stable-slim
+FROM ubuntu:22.04
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
@@ -45,18 +45,6 @@ RUN python --version
 
 # Make an alias for python3.4 to python
 # RUN ln -s /usr/bin/python3.4 /usr/bin/python
-
-RUN wget https://ftp.gnu.org/gnu/glibc/glibc-2.34.tar.gz && \
-	tar -xvf glibc-2.34.tar.gz && \
-	cd glibc-2.34 && \
-	mkdir build && \
-	cd build && \
-	../configure --prefix=/usr --disable-werror && \
-	make -j$(nproc) && \
-	make install
-
-# Cleanup
-RUN rm -rf glibc-2.34.tar.gz glibc-2.34
 
 # RUN apk --no-cache add ca-certificates wget
 # RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
