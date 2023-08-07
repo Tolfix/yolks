@@ -20,7 +20,7 @@
 # SOFTWARE.
 #
 
-FROM alpine:latest
+FROM --platform=$TARGETOS/$TARGETARCH debian:stable-slim
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
@@ -46,12 +46,24 @@ RUN python --version
 # Make an alias for python3.4 to python
 # RUN ln -s /usr/bin/python3.4 /usr/bin/python
 
+RUN wget https://ftp.gnu.org/gnu/glibc/glibc-2.34.tar.gz && \
+	tar -xvf glibc-2.34.tar.gz && \
+	cd glibc-2.34 && \
+	mkdir build && \
+	cd build && \
+	../configure --prefix=/usr && \
+	make -j$(nproc) && \
+	make install
+
+# Cleanup
+RUN rm -rf glibc-2.34.tar.gz glibc-2.34
+
 # RUN apk --no-cache add ca-certificates wget
 # RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
-RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
+# RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.34-r0/glibc-2.34-r0.apk
 # Check if file exists
-RUN ls -l glibc-2.34-r0.apk
-RUN apk add glibc-2.34-r0.apk
+# RUN ls -l glibc-2.34-r0.apk
+# RUN apk add glibc-2.34-r0.apk
 
 RUN         dpkg --add-architecture i386 \
 	&& apt update \
