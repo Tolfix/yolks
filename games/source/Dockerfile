@@ -29,6 +29,23 @@ LABEL       org.opencontainers.image.licenses=MIT
 
 ENV         DEBIAN_FRONTEND=noninteractive
 
+# Install required packages
+RUN apt-get update && \
+	apt-get install -y wget build-essential
+
+# Download and extract GLIBC_2.34
+RUN wget https://ftp.gnu.org/gnu/glibc/glibc-2.34.tar.gz && \
+	tar -xvf glibc-2.34.tar.gz && \
+	cd glibc-2.34 && \
+	mkdir build && \
+	cd build && \
+	../configure --prefix=/usr && \
+	make -j$(nproc) && \
+	make install
+
+# Cleanup
+RUN rm -rf glibc-2.34.tar.gz glibc-2.34
+
 RUN         dpkg --add-architecture i386 \
 	&& apt update \
 	&& apt upgrade -y \
